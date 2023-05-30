@@ -1,0 +1,74 @@
+{
+  "skills": [
+    "Programming Languages": [
+      "Java",
+      "Python",
+      "JavaScript",
+      "C#",
+      "C++"
+    ],
+    "Web Development": [
+      "HTML",
+      "CSS",
+      "AngularJS",
+      "ReactJS",
+      "Node.js"
+    ],
+    "Database Management": [
+      "SQL",
+      "Oracle",
+      "MySQL",
+      "MongoDB",
+      "PostgreSQL"
+    ],
+    "Networking": [
+      "TCP/IP",
+      "LAN/WAN",
+      "Network Security",
+      "Firewalls",
+      "Load Balancing"
+    ],
+    "Cloud Computing": [
+      "AWS",
+      "Azure",
+      "Google Cloud",
+      "OpenStack",
+      "Cloud Foundry"
+    ],
+    "Mobile Development": [
+      "Android",
+      "iOS",
+      "React Native",
+      "Xamarin",
+      "Ionic"
+    ],
+    "Operating Systems": [
+      "Windows",
+      "Linux",
+      "Unix",
+      "Mac OS",
+      "iOS"
+    ],
+    "Artificial Intelligence": [
+      "Machine Learning",
+      "Data Mining",
+      "Natural Language Processing",
+      "Computer Vision",
+      "Neural Networks"
+    ],
+    "Cybersecurity": [
+      "Penetration Testing",
+      "Vulnerability Assessment",
+      "Threat Analysis",
+      "Incident Response",
+      "Identity Management"
+    ],
+    "Project Management": [
+      "Agile Methodology",
+      "Scrum",
+      "Waterfall",
+      "Kanban",
+      "PMI"
+    ]
+  ]
+}
