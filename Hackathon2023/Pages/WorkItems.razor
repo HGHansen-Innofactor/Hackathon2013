@@ -1,0 +1,63 @@
+﻿@page "/workitems"
+
+<PageTitle>WorkItems</PageTitle>
+
+@using Azure.AI.OpenAI
+@using Hackathon2023.Data
+@inject OpenAIService oas
+
+<h1>WorkItems</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+
+<div class="chatborder">
+    <table class="chat">
+    @foreach (ChatMessage item in chatresponce)
+    {
+        <tr class="chatblock">
+        @if (item.Role == ChatRole.User)
+        {
+            <td class="chatbouble right">
+                <span class="msg">@item.Content</span>
+                <span class="user humanUser">@item.Role</span>
+            </td>
+        } else {
+            <td class="chatbouble left">
+                <span class="user botUser">@item.Role</span>
+                <span class="msg">@item.Content</span>
+            </td>
+        }
+        </tr>
+}
+    </table>
+</div>
+
+<EditForm Model="chatresponce">
+    <InputText @ref="inputTextReference" class="form-control" @bind-Value="chatrequest" />
+    <button class="btn btn-primary" @onclick="HandleClick">Ask</button>
+</EditForm>
+
+
+
+@code {
+    InputText inputTextReference;
+    List<ChatMessage> chatresponce = new List<ChatMessage>();
+    string chatrequest = "";
+
+    protected override async void OnParametersSet()
+    {
+        oas.Init(0.7, 0.95, "GPT-Test1", "Hi! I can help you write a workitem descriptions. Give me a type and sample content", OpenAIService.AIType.WorkItem);
+        var raw = oas.ChatMessages;
+        raw.RemoveRange(1, 1);
+        chatresponce = raw;
+    }
+
+    protected async Task HandleClick()
+    {
+        var raw = await oas.MakeRequest(chatrequest);
+        raw.RemoveRange(1, 2);
+        chatresponce = raw;
+        chatrequest = "";
+    }
+}
