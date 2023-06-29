@@ -46,10 +46,6 @@ namespace Hackathon2023.Data
             };
             Site = siteType;
 
-
-
-
-
             switch (siteType)
             {
                 case AIType.CV:
@@ -60,6 +56,9 @@ namespace Hackathon2023.Data
                     break;
                 case AIType.WorkItem:
                     var dumpwi = MakeRequest("Are you ready to generate DevOps work item examples!");
+                    break;
+                case AIType.General:
+                    var dumpgr = MakeRequest("Can you be a general AI assistant");
                     break;
                 default:
                     break;
@@ -97,7 +96,8 @@ namespace Hackathon2023.Data
         {
             CV,
             JobDesc,
-            WorkItem
+            WorkItem,
+            General
         }
     }
 }

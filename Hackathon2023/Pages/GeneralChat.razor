@@ -47,7 +47,7 @@
 
     protected override async void OnParametersSet()
     {
-        oas.Init(0.7, 0.95, "GPT-Test1", "Sup. Homedog", OpenAIService.AIType.WorkItem);
+        oas.Init(0.7, 0.95, "GPT-Test1", "Sup. Homedog", OpenAIService.AIType.General);
         var raw = oas.ChatMessages;
         raw.RemoveRange(1, 1);
         chatresponce = raw;
