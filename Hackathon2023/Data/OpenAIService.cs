@@ -9,8 +9,8 @@ namespace Hackathon2023.Data
     public class OpenAIService
     {
         OpenAIClient client = new OpenAIClient(
-    new Uri("<Instert URI to own OpenAI resource>"),
-    new AzureKeyCredential("<Instert Key from own OpenAI resource"));
+    new Uri("https://openai-henriksbodega.openai.azure.com/"),
+    new AzureKeyCredential("878c71d3f0a249e39c2332a8f12bad2a"));
 
         ChatCompletionsOptions ChatContext = new ChatCompletionsOptions()
         {

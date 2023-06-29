@@ -113,10 +113,81 @@ a, .btn-link {
 }
 
 .sidebar {
-    background-color: #213780 !important;
+    background-color: #5D6B66 !important;
     background-image: none !important;
 }
 
 .form-control.valid{
     margin-bottom: 5px;
+}
+
+
+/* Er det fredag */
+
+.fredayCentralImage {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.fridaybutton {
+    display: inline-block;
+    background-color: #007fff;
+    color: #FFF;
+    padding: 40px 50px;
+    border-radius: 20px;
+    border: none;
+    font-size: 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #FF69B4;
+}
+
+#friday-message {
+    margin-top: 50px;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.TopBar {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 50px; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* min-height: 50px;
+				text-align: center; */
+}
+
+.TopBar-Left {
+    background-color: rgb(93,107,102);
+    width: 42%;
+    display: inline-block;
+    float: left;
+}
+
+.TopBar-Center {
+    background-color: rgb(93,107,102);
+    width: 16%;
+    display: inline-block;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.TopBar-Right {
+    background-color: rgb(93,107,102);
+    width: 42%;
+    display: inline-block;
+    float: right;
+}
+
+.CenterContent {
+    min-height: 50px;
+    text-align: center;
+    margin-top: 20%;
 }

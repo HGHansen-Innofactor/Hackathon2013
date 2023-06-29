@@ -1,0 +1,74 @@
+﻿@page "/erdetfredag"
+
+<PageTitle>Is it Friday?</PageTitle>
+<style>
+	
+</style>
+
+
+
+	<div class="CenterContent">
+
+		@if (ShowBtns)
+		{
+			<div id="ButtonArea">
+				<button class="btn btn-primary" @onclick="checkFriday">Is it Friday?</button>
+				<p></p>
+				<button @onclick="ShowIdea" style="background-color: white;border: none;">Knap ide haver</button>
+			</div>
+		}
+
+		<div>
+				<div id="friday-message">@ResponceText</div>
+				@if (ShowImage)
+				{
+					<img id="friday-img" class="fredayCentralImage" src="@("./ErDetFredag/"+MainImageName)" alt="Henrik">
+				}
+				@if (ShowCredit)
+				{
+					<img id="credithaver-img" class="fredayCentralImage" src="./ErDetFredag/OkansIde.png" alt="Okan">
+				}
+				@if (PlaySound)
+				{
+					<audio id="friday-audio" autoplay src="./ErDetFredag/Curb Your Enthusiasm theme song.mp3"></audio>
+				}			
+		</div>	
+	</div>
+
+	@code {
+	private bool ShowBtns { get; set; } = true;
+	private bool ShowImage { get; set; } = false;
+	private bool PlaySound { get; set; } = false;
+	private bool ShowCredit { get; set; } = false;
+	private string ResponceText { get; set; } = "";
+	private string MainImageName { get; set; } = "";
+	protected async Task checkFriday()
+	{
+		var today = new DateTime();
+		var dayOfWeek = today.DayOfWeek;
+
+		ShowBtns = false;
+		if (dayOfWeek == DayOfWeek.Friday)
+		{
+			MainImageName = "FridayImages/img_11821.jpg";
+			ResponceText = "Yes, it's Friday!";
+			ShowImage = true;
+			PlaySound = true;
+		}
+		else if (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday)
+		{
+			MainImageName = "WeekendImages/weekendOkan.jpg";
+			ResponceText = "No, it's the weekend!";
+			ShowImage = true;
+		}
+		else
+		{
+			ResponceText = "Nope.";
+			ShowImage = false;
+		}
+	} 
+	protected async Task ShowIdea()
+	{
+		ShowImage = false;
+	}
+}
