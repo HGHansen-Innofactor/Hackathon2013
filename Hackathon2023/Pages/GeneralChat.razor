@@ -34,13 +34,16 @@
 </div>
 
 <EditForm Model="chatresponce">
-    <InputText @ref="inputTextReference" class="form-control" @bind-Value="chatrequest" />
-    <button class="btn btn-primary" @onclick="HandleClick">Ask</button>
+    <p hidden="@HideLabel">
+        <InputText @ref="inputTextReference" class="form-control" @bind-Value="chatrequest" />
+        <button class="btn btn-primary" @onclick="HandleClick">Ask</button>
+    </p>
 </EditForm>
 
 
 
 @code {
+    private bool HideLabel { get; set; } = false;
     InputText inputTextReference;
     List<ChatMessage> chatresponce = new List<ChatMessage>();
     string chatrequest = "";
@@ -48,16 +51,15 @@
     protected override async void OnParametersSet()
     {
         oas.Init(0.7, 0.95, "GPT-Test1", "Sup. Homedog", OpenAIService.AIType.General);
-        var raw = oas.ChatMessages;
-        raw.RemoveRange(1, 1);
-        chatresponce = raw;
+        chatresponce = oas.CleanSystemMessages(oas.ChatMessages);
     }
 
     protected async Task HandleClick()
     {
+        HideLabel = true;
         var raw = await oas.MakeRequest(chatrequest);
-        raw.RemoveRange(1, 2);
-        chatresponce = raw;
+        chatresponce = oas.CleanSystemMessages(oas.ChatMessages);
         chatrequest = "";
+        HideLabel = false;
     }
 }

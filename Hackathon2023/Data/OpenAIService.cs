@@ -20,9 +20,9 @@ namespace Hackathon2023.Data
                     },
             Temperature = (float)0.7,
             MaxTokens = 2000,
-            NucleusSamplingFactor = (float)0.95,
             FrequencyPenalty = 0,
             PresencePenalty = 0,
+            NucleusSamplingFactor = (float)0.95
         };
 
         public List<ChatMessage> ChatMessages { get { return ChatContext.Messages.ToList(); } }
@@ -32,37 +32,40 @@ namespace Hackathon2023.Data
         public void Init(double temp, double topP, string model, string initText, AIType siteType)
         {
             Model = model;
-            ChatContext = new ChatCompletionsOptions()
-            {
-                Messages =
-                    {
-                new ChatMessage(ChatRole.Assistant, initText)
-                    },
-                Temperature = (float)temp,
-                MaxTokens = 2000,
-                NucleusSamplingFactor = (float)topP,
-                FrequencyPenalty = 0,
-                PresencePenalty = 0,
-            };
-            Site = siteType;
 
+            ChatMessage systemstart;
             switch (siteType)
             {
                 case AIType.CV:
-                    var dumpcv = MakeRequest("Can you pretend to be a CV database?");
+                    systemstart = new ChatMessage(ChatRole.System, "You are a pretend CV database");
                     break;
                 case AIType.JobDesc:
-                    var dumpjd = MakeRequest("Get ready to generate a job description");
+                    systemstart = new ChatMessage(ChatRole.System, "You are an agent that generates job description");
                     break;
                 case AIType.WorkItem:
-                    var dumpwi = MakeRequest("Are you ready to generate DevOps work item examples!");
+                    systemstart = new ChatMessage(ChatRole.System, "You are an agent that generates DevOps workitem examples");
                     break;
                 case AIType.General:
-                    var dumpgr = MakeRequest("Can you be a general AI assistant");
+                    systemstart = new ChatMessage(ChatRole.System, "You are a general AI assistant");
                     break;
                 default:
+                    systemstart = new ChatMessage(ChatRole.System, "You are a general AI assistant");
                     break;
             }
+
+            ChatContext = new ChatCompletionsOptions()
+            {
+                Messages =  {
+                    systemstart,
+                    new ChatMessage(ChatRole.Assistant, initText)
+                    },
+                Temperature = (float)temp,
+                MaxTokens = 2000,
+                FrequencyPenalty = 0,
+                PresencePenalty = 0,
+                NucleusSamplingFactor = (float)topP
+            };
+            Site = siteType;
 
         }
 
@@ -90,6 +93,21 @@ namespace Hackathon2023.Data
             }
 
             return result;
+        }
+
+        public List<ChatMessage> CleanSystemMessages(List<ChatMessage> messages )
+        {
+            List<ChatMessage> clean = new List<ChatMessage>();
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Role != ChatRole.System)
+                {
+                    clean.Add(messages[i]);
+                }
+            }
+
+            return clean;
         }
 
         public enum AIType
