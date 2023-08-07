@@ -65,7 +65,6 @@ a, .btn-link {
 
 
 .chatborder {
-    border: 5px double black;
     border-radius: 20px;
     margin-bottom: 5px;
 }
@@ -79,7 +78,7 @@ a, .btn-link {
     margin-right: 10px;
     padding: 3px;
     border-radius: 20px;
-    display: inline;
+    display: none;
 }
 .user.botUser {
     border: 2px solid red;
@@ -93,16 +92,24 @@ a, .btn-link {
     }
 .right {
     float: right;
+    /*background-color: #9ddeae;*/
+    border-radius: 20px;
+    border: solid 5px #9dccde;
+    padding: 10px;
 }
 .left {
     float: left;
+    /*background-color: #9ddeae;*/
+    border-radius: 20px;
+    border: solid 5px #de9dac;
+    padding: 10px;
 }
 .chatblock {
     display: inherit
 }
 
 .msg {
-    white-space: break-spaces;
+    
 }
 
 .chatbouble {
@@ -196,4 +203,19 @@ button:hover {
 
 .mainpage {
     width: 80%;
+}
+
+pre {
+    background:beige;
+    border-radius: 20px;
+    padding: 20px;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.thinky {
+    width: 10em;
+    height: 10em;
+    margin-left: 46%;
+    border-radius: 50%;
 }

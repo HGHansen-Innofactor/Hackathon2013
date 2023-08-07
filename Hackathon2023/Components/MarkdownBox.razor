@@ -1,0 +1,69 @@
+﻿@page "/markdown"
+@inherits ComponentBase
+@using Markdig
+@using Microsoft.AspNetCore.Components
+@using Azure.AI.OpenAI
+@using Hackathon2023.Data
+@inject OpenAIService oas
+
+<div class="chatborder">
+    <table class="chat">
+        @foreach (ChatMessage item in chatresponce)
+        {
+            <tr class="chatblock">
+                @if (item.Role == ChatRole.User)
+                {
+                    <td class="chatbouble right">
+                        <span class="user humanUser">@item.Role</span>
+                        <span class="msg">@((MarkupString)@Markdown.ToHtml(@item.Content))</span>
+                    </td>
+                }
+                else
+                {
+                    <td class="chatbouble left">
+                        <span class="user botUser">@item.Role</span>
+                        <span class="msg">@((MarkupString)@Markdown.ToHtml(@item.Content))</span>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<EditForm Model="chatresponce">
+    <p hidden="@HideLabel">
+        <InputText @ref="inputTextReference" class="form-control" @bind-Value="chatrequest" />
+        <button class="btn btn-primary" @onclick="HandleClick">Ask</button>
+    </p>
+    <p hidden="@NotHideLabel">
+        <img class="thinky" src="\images\thinky.gif" alt="thinking...">
+    </p>
+</EditForm>
+
+@code {
+    private bool HideLabel { get; set; } = false;
+    private bool NotHideLabel { get { return !HideLabel; } }
+    InputText inputTextReference;
+    List<ChatMessage> chatresponce = new List<ChatMessage>();
+    string chatrequest = "";
+
+    [ParameterAttribute]
+    public string initBlurp { get; set; }
+    [ParameterAttribute]
+    public string initAIType { get; set; }
+
+    protected override async void OnParametersSet()
+    {        
+        oas.Init(0.7, 0.95, "GPT-Test1", initBlurp, Enum.Parse<OpenAIService.AIType>(initAIType));
+        chatresponce = oas.CleanSystemMessages(oas.ChatMessages);
+    }
+
+    protected async Task HandleClick()
+    {
+        HideLabel = true;
+        var raw = await oas.MakeRequest(chatrequest);
+        chatresponce = oas.CleanSystemMessages(oas.ChatMessages);
+        chatrequest = "";
+        HideLabel = false;
+    }
+}
